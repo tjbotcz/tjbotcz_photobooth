@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <title>Pictures preview</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+  <link href="css/style2.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--<h1>Picture reloader</h1> -->
+<div class="header" align="center">
+  <img src= "image/header.png">
+</div>
+<div class="container" align="center" style="width:40%; position:relative; background-color: #ffffff; width: 40%; margin: 0 auto; height: auto;">
+  <div class = "picture_area">
+    <div style="width:98%; padding:2px">
+      <h2 class = "picName fadeInDown">#FPP2018</h2>
+      <h3 style="font-weight: lighter;">TJ Bot CZ</h3>
+      <img id="picture_orig" style="max-width:100%;" alt="Orig picture" onclick="addEmail(event)">
+      <script type="text/javascript">
+      var xhttp = new XMLHttpRequest();
+      var url = window.location.protocol+ "//" + window.location.host + "/rest/getAlbum";
+      var picture = document.getElementById('picture_orig');
+      var albumText;
+        xhttp.onload = function () {
+          if(this.status === 200) {
+            albumText = JSON.parse(this.responseText);
+            console.log(albumText);
+            var reloadTime = albumText.length;
+
+            albumText.forEach((item, index) => {
+              if (item.ext == ".jpg"){
+                setTimeout(() => {
+                  picture.classList.add("fadeInDown");
+                  var destinantion = JSON.stringify(item.path);
+                  var n = destinantion.indexOf("img");
+                  picture.src = destinantion.slice(n, -1);
+                  console.log(item.path)
+                }, index * 2000)
+              }
+            })
+            setTimeout(() => {
+              window.location.reload();
+            }, reloadTime * 2000)
+          }
+      }
+      xhttp.open("GET", url, true);
+      xhttp.send();
+
+      </script>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</div>
+<footer>
+  <div class="watson">
+    <img src=image/watson.png>
+    <span class="tooltiptext">This chat is powered by IBM Watson Assistant.</span>
+  </div>
+  <a href="index.html">
+    <i class="material-icons" style="font-size: 250%">textsms
+      <span class="tooltiptext">Click to try a chatbot.</span>
+    </i>
+  </a>
+</footer>
+</body>
+</html>

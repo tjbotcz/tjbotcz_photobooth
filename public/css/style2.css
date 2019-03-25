@@ -1,0 +1,203 @@
+/*
+  inspired by: http://nicolasgallagher.com/pure-css-speech-bubbles/demo/default.css
+  date: 11.09.2017
+*/
+html {
+  background-color: #ECE8E8;
+  font-family: "Helvetica Neue", Helvetica;
+}
+body {
+  background-color: #ECE8E8;
+}
+
+.header {
+  position: relative;
+  top: -10px;
+  width: 100%;
+  margin-bottom: -6%;
+}
+
+.header img{
+  width: 50%;
+  height: auto;
+}
+
+.arm-up img{
+  position: absolute;
+  display: block;
+  width: 50%;
+  height: auto;
+  z-index: 1;
+  top: 100px;
+  right: 45px;
+}
+
+.arm-down img{
+  position: absolute;
+  display: block;
+  width: 50%;
+  height: auto;
+  z-index: 3;
+  top: 100px;
+  right: 45px;
+  visibility: hidden;
+}
+
+
+.container{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.picture-container {
+  position: relative;
+  background-color: #ffffff;
+  margin: 0 auto;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+footer {
+  display: block;
+  position: fixed;
+  bottom: 7.5px;
+  left: 12px;
+}
+.watson img{
+  height: auto;
+  width: 100%;
+}
+.watson {
+  height:auto;
+  width: 45px;
+  box-shadow: 0 1px 3px #ffffff;
+  border: 2px solid #ffffff;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  padding: 6px;
+}
+
+.watson:hover{
+  border: 2px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 3px;
+  cursor: pointer;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+}
+
+.watson .tooltiptext {
+  visibility: hidden;
+  width: 500%;
+  background-color:rgba(81, 81, 81, 1) ;
+  color: #fff;
+  border-radius: 6px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -40px;
+  margin-bottom: 10px;
+}
+
+.watson:hover .tooltiptext {
+  visibility: visible;
+}
+
+.pic-area:hover .menu nav{
+  visibility: visible;
+}
+
+nav {
+  position: relative;
+  top: -50vh;
+  left: 15vw;
+  visibility: hidden;
+}
+
+nav ul li {
+  list-style: none;
+  padding: 5px;
+}
+
+i.material-icons {
+  box-shadow: 0 1px 3px;
+  border: 2px solid rgba(255, 255, 255, 1);
+  background-color: #fff;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  padding: 10px;
+  color: rgba(81, 81, 81, 1);
+  cursor: pointer;
+}
+
+i.material-icons:hover {
+  transform: scale(1.2);
+}
+
+i.material-icons .tooltiptext {
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+  width: 200%;
+  padding: 0.5rem;
+  color: rgba(81, 81, 81, 1);
+  position: absolute;
+  z-index: 1;
+  margin-left: -5px;
+}
+
+i.material-icons:hover .tooltiptext {
+    visibility: visible;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica;
+}
+
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+.close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

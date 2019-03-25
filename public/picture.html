@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+  <title>Pictures preview</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="css/style2.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--<h1>Picture reloader</h1> -->
+<div class="header" align="center">
+  <img src= "image/header.png">
+</div>
+<div class="container" align="center" style="box-shadow: none">
+  <div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <div class="arm-up">
+        <img id="arm-upL" src="image/arm_upL.png">
+      </div>
+      <div class="arm-down">
+        <img id="arm-downL" src="image/arm_downL.png">
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <div class = "picture_area picture-container">
+        <div style="width:98%; padding:2px">
+          <h2 class = "picName fadeInDown">IBM Mikuláš</h2>
+          <h3 style="font-weight: lighter;">TJ Bot CZ</h3>
+          <div class="pic-area">
+            <img src="img/test.jpg" id="picture_orig" style="max-width:100%;" alt="Orig picture">
+            <div class="menu">
+              <nav>
+                <ul>
+                  <li>
+                    <i class="material-icons" onclick="addEmail(event)">mail
+                      <span class="tooltiptext">Send</span>
+                    </i>
+                  </li>
+                  <li>
+                    <i class="material-icons" id="printPic">local_printshop
+                      <span class="tooltiptext">Print</span>
+                    </i>
+                  </li>
+                  <li>
+                    <i class="material-icons" id="deletePic">delete_forever
+                      <span class="tooltiptext">Delete</span>
+                    </i>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <div class="arm-up">
+        <img id="arm-upR" src="image/arm_upR.png">
+      </div>
+      <div class="arm-down">
+        <img id="arm-downR" src="image/arm_downR.png">
+      </div>
+    </div>
+  <div style="clear:both"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var xhttp = new XMLHttpRequest();
+var url = window.location.protocol+ "//" + window.location.host + "/rest/getAlbum";
+var picture = document.getElementById('picture_orig');
+var albumText;
+  xhttp.onload = function () {
+    if(this.status === 200) {
+      albumText = JSON.parse(this.responseText);
+
+      var lastPic = albumText[(albumText.length - 1)];
+      picture.classList.add("fadeInDown");
+      var destinantion = JSON.stringify(lastPic.path);
+      var n = destinantion.indexOf("img");
+      picture.src = destinantion.slice(n, -1);
+      //console.log(albumText);
+      //console.log(lastPic);
+    }
+    return albumText
+  }
+  xhttp.open("GET", url, true);
+  xhttp.send();
+
+var file  = document.getElementById("picture_orig");
+function addEmail(event) {
+  var receiver = prompt("Please enter emails to send pictures:", "example@example.com, example2@example.com");
+  if(confirm) {
+    sendEmail(receiver);
+  }
+  event.preventDefault();
+  return receiver
+}
+
+function sendEmail(receiver){
+  var fileName = file.src.replace(/^.*[\\\/]/,'');
+  var filePath = file.src
+  var xhr = new XMLHttpRequest();
+  var url = window.location.protocol+ "//" + window.location.host + "/rest/getAlbum";
+  xhr.onload = function () {
+    if(this.status === 200) {
+      console.log(fileName);
+      console.log(filePath);
+    }
+  }
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(JSON.stringify({"fileName" : fileName, "filePath" : filePath, "receiver": receiver}));
+}
+
+var armUpL = document.querySelector("#arm-upL");
+var armDownL = document.querySelector("#arm-downL");
+var armUpR = document.querySelector("#arm-upR");
+var armDownR = document.querySelector("#arm-downR");
+var deletePic = document.querySelector("#deletePic");
+var printPic = document.querySelector("#printPic");
+
+printPic.onclick = function () {
+  var text = confirm("Are you sure you want to print this picture?")
+  if(confirm) {
+    var fileName = file.src.replace(/^.*[\\\/]/,'');
+    var xhr = new XMLHttpRequest();
+    var url = window.location.protocol+ "//" + window.location.host + "/rest/printPicture";
+    xhr.onload = function () {
+      if(this.status === 200) {
+        console.log("Something went wrong.")
+      }
+    }
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({"msg":"print", "fileName" : fileName}));
+    alert("Printing");
+  }
+
+}
+
+deletePic.onclick = function () {
+  var text = confirm("Are you sure you want to delete this picture?")
+  if(confirm) {
+    var fileName = file.src.replace(/^.*[\\\/]/,'');
+    var xhr = new XMLHttpRequest();
+    var url = window.location.protocol+ "//" + window.location.host + "/rest/deletePicture";
+    xhr.onload = function () {
+      if(this.status === 200) {
+        console.log("Something went wrong.")
+      }
+    }
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({"msg":"delete", "fileName" : fileName}));
+    alert("Deleted");
+    albumText.pop();
+    window.location.reload();
+  }
+}
+
+armUpL.onclick = function() {
+  armUpL.style.visibility = "hidden";
+  armDownL.style.visibility= "visible";
+  setTimeout(() => {
+    armUpL.style.visibility = "visible";
+    armDownL.style.visibility= "hidden";
+  }, 250);
+  var activePicture = albumText.pop();
+  albumText.unshift(activePicture);
+  var newActivePicture = albumText[(albumText.length - 1)];
+  var destinantion = JSON.stringify(newActivePicture.path);
+  var n = destinantion.indexOf("img");
+  picture.src = destinantion.slice(n, -1);
+}
+
+armUpR.onclick = function() {
+  armUpR.style.visibility = "hidden";
+  armDownR.style.visibility= "visible";
+  setTimeout(() => {
+    armUpR.style.visibility = "visible";
+    armDownR.style.visibility= "hidden";
+  }, 250);
+  var activePicture = albumText.shift();
+  albumText.push(activePicture);
+  var newActivePicture = albumText[(albumText.length - 1)];
+  var destinantion = JSON.stringify(newActivePicture.path);
+  var n = destinantion.indexOf("img");
+  picture.src = destinantion.slice(n, -1);
+}
+
+</script>
+</body>
+</html>
